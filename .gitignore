@@ -1,3 +1,74 @@
-node_modules/
-.env
+# ========== EDITORES Y IDE ==========
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
 
+# ========== ARCHIVOS DEL SISTEMA ==========
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.tmp
+*.log
+
+# ========== DEPENDENCIAS (si usas npm en futuro) ==========
+node_modules/
+package-lock.json
+yarn.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========== ARCHIVOS DE PRUEBA ==========
+test/
+*.test.js
+*.spec.js
+coverage/
+
+# ========== ARCHIVOS TEMPORALES DEL JUEGO ==========
+*.save
+*.dat
+*.cache
+temp/
+tmp/
+
+# ========== CONFIGURACIÓN LOCAL ==========
+.env
+.env.local
+.env.*.local
+config.local.js
+
+# ========== ARCHIVOS DE RESPALDO ==========
+*.bak
+*.backup
+*.old
+*.orig
+
+# ========== ARCHIVOS COMPRIMIDOS ==========
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# ========== ARCHIVOS DE SONIDO/IMAGEN GRANDES (opcional) ==========
+# *.mp3
+# *.wav
+# *.png
+# *.jpg
+# Si quieres mantener assets, comenta las líneas de arriba
+
+# ========== ARCHIVOS DE TESTS VISUALES ==========
+screenshots/
+test-results/
+
+# ========== OTROS ==========
+*.pid
+*.seed
+*.pid.lock

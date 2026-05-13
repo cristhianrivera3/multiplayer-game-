@@ -1,14 +1,136 @@
 <!DOCTYPE html>
-<hmtl lang="es">
+<html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Videojuego JS</title>
-    <link rel="stylesheet" herf="style.css">
-</head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>👾 SPACE ALIENS - Pixel Arcade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-    <h1>!Bienvenido al videojuego¡</h1>
-    <canvas id="gameCanvas"></canvas>
-    <script src="script.js"></script>
-</body> 
-</hmtl> 
+    <!-- MENÚ PRINCIPAL PIXEL -->
+    <div id="mainMenu" class="menu-screen">
+        <div class="pixel-container">
+            <h1 class="pixel-big-title">🕹️ SPACE ALIENS</h1>
+            <h2 class="pixel-sub">PIXEL ARCADE EDITION</h2>
+            
+            <div class="pixel-divider"></div>
+            
+            <div class="pixel-section">
+                <h3 class="pixel-section-title">🛸 SELECCIONA NAVE</h3>
+                <div class="pixel-ships">
+                    <div class="pixel-card-ship" data-ship="default">
+                        <div class="pixel-ship-icon ship-default"></div>
+                        <span class="ship-name">⭐ CLÁSICA</span>
+                        <span class="ship-stats">BALANCE</span>
+                    </div>
+                    <div class="pixel-card-ship" data-ship="rapid">
+                        <div class="pixel-ship-icon ship-rapid"></div>
+                        <span class="ship-name">⚡ RÁPIDA</span>
+                        <span class="ship-stats">+30% CADENCIA</span>
+                    </div>
+                    <div class="pixel-card-ship" data-ship="tank">
+                        <div class="pixel-ship-icon ship-tank"></div>
+                        <span class="ship-name">🛡️ TANQUE</span>
+                        <span class="ship-stats">5 VIDAS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pixel-section">
+                <h3 class="pixel-section-title">🌍 SELECCIONA MAPA</h3>
+                <div class="pixel-maps">
+                    <div class="pixel-card-map" data-map="purple">
+                        <span class="map-name">🔮 NEBULOSA</span>
+                        <span class="map-diff">NORMAL</span>
+                    </div>
+                    <div class="pixel-card-map" data-map="fire">
+                        <span class="map-name">🔥 VOLCÁN</span>
+                        <span class="map-diff">DIFÍCIL</span>
+                    </div>
+                    <div class="pixel-card-map" data-map="ice">
+                        <span class="map-name">❄️ TUNDRA</span>
+                        <span class="map-diff">FÁCIL</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pixel-divider"></div>
+            
+            <button id="startGameBtn" class="pixel-main-btn">▶ COMENZAR JUEGO</button>
+            
+            <div class="pixel-record">
+                🏆 RÉCORD: <span id="menuHighScore">00000</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JUEGO - FONDO COMPLETO + ÁREA TRANSPARENTE -->
+    <div id="gameContainer" class="game-container hidden">
+        <!-- Fondo de pantalla COMPLETO (se ve detrás) -->
+        <canvas id="backgroundCanvas" class="fullscreen-bg"></canvas>
+        
+        <!-- Área de juego transparente (recuadro) -->
+        <div class="game-area-wrapper">
+            <div class="game-area-border">
+                <canvas id="gameCanvas" class="game-canvas"></canvas>
+                
+                <!-- HUD -->
+                <div class="game-hud">
+                    <div class="pixel-hud-item">
+                        <span>🎯</span>
+                        <span id="scoreText" class="pixel-score">0000</span>
+                    </div>
+                    <div class="pixel-hud-item">
+                        <span>💜</span>
+                        <span id="livesText" class="pixel-hearts">❤️❤️❤️</span>
+                    </div>
+                    <div class="pixel-hud-item">
+                        <span>🏆</span>
+                        <span id="highScoreText" class="pixel-score">0000</span>
+                    </div>
+                    <div class="pixel-hud-item">
+                        <span>🌊</span>
+                        <span id="waveText" class="pixel-score">01</span>
+                    </div>
+                </div>
+                
+                <!-- Botones -->
+                <div class="game-buttons">
+                    <button id="pauseBtn" class="pixel-small-btn">⏸️ PAUSA</button>
+                    <button id="menuBtn" class="pixel-small-btn">🏠 MENÚ</button>
+                </div>
+                
+                <!-- Controles -->
+                <div class="game-controls">
+                    <div class="ctrl-title">🎮 CONTROLES</div>
+                    <div class="ctrl-line">🖱️ MOUSE = MOVER</div>
+                    <div class="ctrl-line">🔫 CLIC = DISPARAR</div>
+                    <div class="ctrl-line">⚡ MANTENER = AUTO</div>
+                    <div class="ctrl-line">⎚ ESC = PAUSA</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MODALES -->
+        <div id="pauseScreen" class="modal-pixel hidden">
+            <div class="modal-pixel-content">
+                <h1 class="pixel-modal-title">⏸️ PAUSA</h1>
+                <button id="resumeBtn" class="pixel-modal-btn">▶ REANUDAR</button>
+                <button id="menuFromPauseBtn" class="pixel-modal-btn">🏠 MENÚ</button>
+            </div>
+        </div>
+        
+        <div id="gameOver" class="modal-pixel hidden">
+            <div class="modal-pixel-content">
+                <h1 class="pixel-modal-title">👾 GAME OVER</h1>
+                <p class="pixel-modal-text">PUNTAJE: <span id="finalScore">0</span></p>
+                <p class="pixel-modal-text">RÉCORD: <span id="finalHighScore">0</span></p>
+                <button id="playAgainBtn" class="pixel-modal-btn">🔄 JUGAR</button>
+                <button id="menuFromGameOverBtn" class="pixel-modal-btn">🏠 MENÚ</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>
